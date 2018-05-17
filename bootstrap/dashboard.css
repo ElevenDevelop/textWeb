@@ -1,0 +1,179 @@
+﻿/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #fff;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+
+/*ll add 20171206*/
+.main-navigation {
+    text-align: center;
+    background: #ffffff;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 3px solid #f5f5f5;
+    margin-bottom: 35px;
+}
+
+    .main-navigation .menu {
+        padding: 0;
+        margin: 0;
+    }
+
+        .main-navigation .menu li.nav-current {
+            border-bottom: 3px solid #428bca;
+            margin-bottom:-2px;
+            
+        }
+            .main-navigation .menu li.nav-current a {
+            color:#428bca;
+            }
+
+        .main-navigation .menu li {
+            display: inline-block;
+            list-style: none;
+            position: relative;
+        }
+
+            .main-navigation .menu li a {
+                color: #000000;
+                line-height: 4em;
+                display: block;
+                padding: 0 21px;
+            }
+  /*下面导航栏*/
+ .panel-body .navbar-nav li{
+  list-style:none;
+  padding:0 15px;
+}
+   /*下面内容栏*/
+#accordion .panel-default {
+    width:400px;
+   float:left !important;
+   margin:10px 20px 10px 20px;
+}
+
+/*#collapsestart .list-group .list-group-item {
+    margin:5px 3px 5px 3px;
+}*/
+.BlockOrNone {
+ display:none;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+table.table-fixed-head .table-fixed-head-thead {
+    border-bottom: 1px solid #dddddd;
+    background: #fff;
+}
+
+

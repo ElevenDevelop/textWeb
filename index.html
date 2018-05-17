@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.treegrid.css">
+    <link rel="stylesheet" href="bootstrap/dashboard.css">
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.treegrid.js"></script>
+    <script src="js/jquery.treegrid.extension.js"></script>
+    <script src="js/index.js"></script>
+    <script src="bootstrap/js/bootstrap-select.js"></script>
+    <!--<script src="bootstrap/jquery.michiweber.table-head-fixed.min.js"></script>-->
+    <script src="js/alert.js"></script>
+    <link rel="stylesheet" href="css/toolbar.css">
+
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">消息 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#">任务</a></li>
+                <li><a href="#">日程</a></li>
+                <li><a href="#">知识</a></li>
+                <li><a href="#">应用</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" class="glyphicon glyphicon-user" id="showuser"></a><span id="user" style="display: none"></span><span id="role" style="display: none"></span></li>
+                <li><a href="javascript:void(0)" onclick="loginout()">安全退出</a></li>
+                <li><a href="#" class="glyphicon glyphicon-comment"></a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!-- 内容块-->
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">测点信息</h3></div>
+    <div class="panel-body">
+        <form class="form-inline" style="margin-left: 15px;margin-bottom: 10px;">
+            <div class="form-group" style="margin-left: 25px;">
+                <select class="form-control" id="combox">
+                    <option value="">--请选择--</option>
+                    <option value="Counts">编号</option>
+                    <option value="Description">测点描述</option>
+                    <option value="TeamNumber">Team工作项号</option>
+                    <option value="Cheat">备注</option>
+                    <option value="UserName">用户</option></select>
+            </div>
+            <div class="form-group">
+                <input type="text" name="keyword" class="form-control" placeholder="请输入关键字.." id="keyword">
+                <button type="button" class="btn btn-primary" onclick="search()">搜索</button>
+            </div>
+            <div class="form-group">
+                <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmodel" style="display: none">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" id="addtext">新增测点</span>&nbsp;
+                </button>
+            </div>
+            <div class="form-group">
+                <button id="btn_role" type="button" class="btn btn-success" data-toggle="modal" data-target="#addRole" style="display: none" onclick="UserList()">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" id="addrolebtn">权限分配</span>&nbsp;
+                </button>
+            </div>
+            <div class="form-group">
+            <button id="btn_delete" type="button" class="btn btn-warning" disabled="disabled">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="delet()">删除</span>&nbsp;
+            </button>
+            </div>
+            <div class="form-group">
+                <button id="btn_refresh" type="button" class="btn btn-info">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true" onclick="refresh()">刷新</span>&nbsp;
+                </button>
+            </div>
+        </form>
+    </div>
+    <table id="deptTreeTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap table-fixed-head" style="margin-left: 5px"></table>
+    </table>
+</div>
+<!-- 操作块 -->
+<div class="panel panel-info" style="margin-top: 10px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">测点操作</h3>
+    </div>
+    <div class="panel-body" id="bodyedit">
+        <form class="form-inline">
+            <div class="form-group"style="display: none" id="number">
+                <label>编号:</label>
+                <input type="text" class="form-control" id="DescriptionId" disabled="disabled" name="DescriptionId">
+            </div>
+            <div class="form-group">
+                <label>测点描述:</label>
+                <div class="form-group">
+                    <span id="titlemanger">父级节点:</span>
+                    <select class="form-control" id="DescriptionCom" onchange="showItem($('#DescriptionCom').val())">
+                        <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                    </select>
+                    <input type="text" class="form-control" id="DescriptionManger" name="Description" style="display:none;">
+
+                    <span id="childName" hidden="hidden">子节点:</span>
+                    <input type="text" class="form-control" id="Description" name="Description" style="display:none;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Team工作项号:</label>
+                <input type="text" class="form-control" id="TeamNumber" name="TeamNumber"/>
+            </div>
+
+            <div class="form-group">
+                <label>状态(是否通过):</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="0" checked>
+                        是
+                    </label>&nbsp;&nbsp;
+                    <label><input type="radio" name="optionsRadios" id="optionsRadios2" value="1">否</label>
+                </div>
+            </div>
+            <input type="hidden" name="parentId" id="parentId">
+        </form>
+        <div class="form-group" style="margin-left: 17px;">
+            <label>&nbsp;备&nbsp;&nbsp;忘：</label>
+            <textarea rows="4" cols="50" placeholder="备注..." id="Cheat" class="form-control" name="Cheat"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="add();" style="margin-left: 17px;">保存</button>
+    </div>
+</div>
+<!--模态框添加-->
+<div class="modal fade" id="addmodel" tabindex="-1" role="dialog" aria-labelledby="addmodel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">测点操作</h4>
+</div>
+<div class="modal-body">
+<div class="form-group">
+<label>测点描述：</label>
+<input type="text" class="form-control"  id="DescriptionParent" name="DescriptionParent">
+</div>
+<div class="form-group">
+<label>Team工作项号：</label>
+<input type="text" class="form-control" id="TeamNumberParent" name="TeamNumberParent"/>
+</div>
+<div class="form-group">
+<label>状态(是否通过)：</label>
+<div class="radio">
+<label>
+<input type="radio" name="optionsRadiosParent" id="optionsRadios1Parent" value="0" checked>
+是
+</label>&nbsp;&nbsp;
+<label><input type="radio" name="optionsRadiosParent" id="optionsRadios2Parent" value="1">否</label>
+</div>
+</div>
+<div class="form-group">
+<label>备忘：</label>
+<textarea rows="4" cols="50" placeholder="备注..." id="CheatParent" class="form-control" name="CheatParent"></textarea>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<button type="button" class="btn btn-primary" onclick="addParent();" id="btn_addprent">保存</button>
+</div>
+</div>
+</div>
+</div>
+
+<!--模态框权限分配-->
+<div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="addRole">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">权限编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>用户:</label>
+                    <select class="form-control" id="UserCom">
+                        <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label>角色：</label>
+                    <select class="form-control" id="UserRoleCom">
+                        <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                        <option value="1">管理员</option>
+                        <option value="2">普通用户</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="UserRole()" id="btn_addRole">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

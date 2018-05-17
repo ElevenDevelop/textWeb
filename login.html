@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>登录</title>
+    <link type="text/css" rel="stylesheet" href="css/login.css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/login.js"></script>
+</head>
+<body><!--style="overflow:hidden"-->
+<div>
+    <div class="main">
+        <div class="header"></div>
+        <div class="content">
+            <div class="con_right">
+                <div class="con_r_top">
+                    <a href="javascript:;" class="left"
+                       style="color: rgb(51, 51, 51); border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: rgb(46, 85, 142);">登录</a>
+                    <a href="javascript:;" class="right"
+                       style="color: rgb(153, 153, 153); border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: rgb(222, 222, 222);">注册</a>
+                </div>
+                <ul>
+                    <li class="con_r_left" style="display: block;">
+                        <form name="form1" method="post">
+                            <div class="user">
+                                <div><label style="color: red;display: none" id="mesguser">请输入用户名</label><br>
+                                    <span class="user-icon"></span>
+                                    <input type="text" id="userid" name="userid" placeholder="　用户名" value="">
+                                </div>
+                                <div><label style="color: red;display: none" id="mesgpwd">请输入密码</label><br/>
+                                    <span class="mima-icon"></span>
+                                    <input type="password" id="pwd" name="pwd" placeholder="　输入密码" value="">
+
+                                </div>
+                            </div>
+                            <br>
+                            <button id="btn_Login" type="button" onclick="login();">登 录</button>
+                        </form>
+                    </li>
+                    <li class="con_r_right" style="display: none;">
+                        <form name="fmRegist" method="post" autocomplete="off">
+                            <div class="user">
+                                <div><label style="color: red;display: none" id="mesgreg">请输入用户名</label><br><span class="user-icon"></span>
+                                    <input type="text" id="registerName" name="registername" placeholder=" 用户名" value="">
+                                </div>
+                                <div><span class="mima-icon"></span>
+                                    <input type="password" id="registerPassword" name="registerpwd" placeholder=" 输入密码" value="">
+                                </div>
+
+                                <div><span class="mima-icon"></span>
+                                    <input type="password" id="affirmpwd" name="affirmpwd" placeholder=" 确认密码" value="">
+                                </div>
+                            </div>
+                            <br>
+                            <button id="btn_register" type="button" onclick="register();">注 册</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
